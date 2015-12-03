@@ -22,7 +22,7 @@ class BackupManager extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('MysqlBackup\BackupManager',$this->bm);
     }
 
-    public function testConnector()
+    public function testDumper()
     {
         $dumper = Mockery::mock('MysqlBackup\Dumpers\DumperInterface');
         $this->bm->setDumper($dumper);

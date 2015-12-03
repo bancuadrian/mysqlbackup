@@ -14,7 +14,7 @@ interface DumperInterface
     /**
      * Returns dump from the database
      * @param string $database
-     * @throws ConnectorException
+     * @throws Exception
      * @return string
      */
     public function getDump($database);

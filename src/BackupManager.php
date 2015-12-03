@@ -24,7 +24,7 @@ class BackupManager
 
     /**
      * BackupManager constructor.
-     * @param ConnectorInterface $connector
+     * @param DumperInterface $dumper
      * @param PersistenceInterface $persistence
      */
     public function __construct(DumperInterface $dumper = null, PersistenceInterface $persistence = null)

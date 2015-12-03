@@ -13,8 +13,15 @@ interface PersistenceInterface
 {
     /**
      * @param string $database
-     * @throws PersistenceException
+     * @throws \Exception
      * @return null
      */
     public function persist($database);
+
+    /**
+     * Reads a file and returns the result
+     * @param string $filename
+     * @return string
+     */
+    public function read($filename);
 }
