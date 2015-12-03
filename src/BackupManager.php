@@ -11,12 +11,14 @@ namespace MysqlBackup;
 
 use MysqlBackup\Connectors\ConnectorException;
 use MysqlBackup\Connectors\ConnectorInterface;
+use MysqlBackup\Dumpers\DumperInterface;
 use MysqlBackup\Persistence\PersistenceInterface;
 
 class BackupManager
 {
     protected $databases;
     protected $connector;
+    protected $dumper;
     protected $persistence;
     protected $failedBackups = [];
 
@@ -25,9 +27,9 @@ class BackupManager
      * @param ConnectorInterface $connector
      * @param PersistenceInterface $persistence
      */
-    public function __construct(ConnectorInterface $connector = null, PersistenceInterface $persistence = null)
+    public function __construct(DumperInterface $dumper = null, PersistenceInterface $persistence = null)
     {
-        $this->connector = $connector;
+        $this->dumper = $dumper;
         $this->persistence = $persistence;
     }
 
@@ -50,12 +52,20 @@ class BackupManager
     }
 
     /**
-     * Sets the connector
-     * @param ConnectorInterface $connector
+     * Sets the dumper
+     * @param DumperInterface $dumper
      */
-    public function setConnector(ConnectorInterface $connector)
+    public function setDumper(DumperInterface $dumper)
     {
-        $this->connector = $connector;
+        $this->dumper = $dumper;
+    }
+
+    /**
+     * @return DumperInterface
+     */
+    public function getDumper()
+    {
+        return $this->dumper;
     }
 
     /**
@@ -68,15 +78,6 @@ class BackupManager
     }
 
     /**
-     * Returns the connector
-     * @return ConnectorInterface
-     */
-    public function getConnector()
-    {
-        return $this->connector;
-    }
-
-    /**
      * Back up a single database. Throw exception if something happens
      * @param string $database
      * @throws Exception
@@ -85,7 +86,7 @@ class BackupManager
     public function backup($database)
     {
         try {
-            $dump = $this->connector->getDump($database);
+            $dump = $this->dumper->getDump($database);
             $this->persistence->persist($dump);
         } catch (\Exception $e) {
             $this->failedBackups[] = $database;

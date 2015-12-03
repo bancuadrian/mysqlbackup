@@ -24,19 +24,21 @@ class BackupManager extends PHPUnit_Framework_TestCase
 
     public function testConnector()
     {
-        $connector = Mockery::mock('MysqlBackup\Connectors\ConnectorInterface');
-        $this->bm->setConnector($connector);
+        $dumper = Mockery::mock('MysqlBackup\Dumpers\DumperInterface');
+        $this->bm->setDumper($dumper);
 
-        $this->assertInstanceOf('MysqlBackup\Connectors\ConnectorInterface',$this->bm->getConnector());
+        $this->assertInstanceOf('MysqlBackup\Dumpers\DumperInterface',$this->bm->getDumper());
     }
 
     public function testBackupSingleSuccessfully()
     {
-        $connector = Mockery::mock('MysqlBackup\Connectors\ConnectorInterface');
-        $connector->shouldReceive('getDump')->once()->andReturn('dump');
+        $dumper = Mockery::mock('MysqlBackup\Dumpers\DumperInterface');
+        $dumper->shouldReceive('getDump')->once()->andReturn('dump');
+
         $persistence = Mockery::mock('MysqlBackup\Persistence\PersistenceInterface');
         $persistence->shouldReceive('persist')->once();
-        $this->bm->setConnector($connector);
+
+        $this->bm->setDumper($dumper);
         $this->bm->setPersistence($persistence);
 
         $result = $this->bm->backup('database1');
@@ -46,10 +48,11 @@ class BackupManager extends PHPUnit_Framework_TestCase
 
     public function testBackupSingleFailed()
     {
-        $connector = Mockery::mock('MysqlBackup\Connectors\ConnectorInterface');
-        $connector->shouldReceive('getDump')->once()->andThrow('Exception');
+        $dumper = Mockery::mock('MysqlBackup\Dumpers\DumperInterface');
+        $dumper->shouldReceive('getDump')->once()->andThrow('Exception');
+
         $persistence = Mockery::mock('MysqlBackup\Persistence\PersistenceInterface');
-        $this->bm->setConnector($connector);
+        $this->bm->setDumper($dumper);
         $this->bm->setPersistence($persistence);
 
         $result = $this->bm->backup('database1');
@@ -60,12 +63,12 @@ class BackupManager extends PHPUnit_Framework_TestCase
 
     public function testBackupAllSuccessful()
     {
-        $connector = Mockery::mock('MysqlBackup\Connectors\ConnectorInterface');
+        $dumper = Mockery::mock('MysqlBackup\Dumpers\DumperInterface');
         $persistence = Mockery::mock('MysqlBackup\Persistence\PersistenceInterface');
 
         foreach($this->bm->getDatabases() as $database)
         {
-            $connector
+            $dumper
                 ->shouldReceive('getDump')
                 ->with($database)
                 ->once()
@@ -77,7 +80,7 @@ class BackupManager extends PHPUnit_Framework_TestCase
                 ->once();
         }
 
-        $this->bm->setConnector($connector);
+        $this->bm->setDumper($dumper);
         $this->bm->setPersistence($persistence);
 
         $backupSuccessful = $this->bm->backupAll();
@@ -88,12 +91,12 @@ class BackupManager extends PHPUnit_Framework_TestCase
 
     public function testBackupAllFailed()
     {
-        $connector = Mockery::mock('MysqlBackup\Connectors\ConnectorInterface');
+        $dumper = Mockery::mock('MysqlBackup\Dumpers\DumperInterface');
         $persistence = Mockery::mock('MysqlBackup\Persistence\PersistenceInterface');
 
         foreach($this->bm->getDatabases() as $database)
         {
-            $connector
+            $dumper
                 ->shouldReceive('getDump')
                 ->with($database)
                 ->once()
@@ -104,7 +107,7 @@ class BackupManager extends PHPUnit_Framework_TestCase
                 ->andThrow('Exception');
         }
 
-        $this->bm->setConnector($connector);
+        $this->bm->setDumper($dumper);
         $this->bm->setPersistence($persistence);
 
         $result = $this->bm->backupAll();
