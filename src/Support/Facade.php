@@ -11,7 +11,7 @@ namespace BancuAdrian\MysqlBackup\Support;
 
 class Facade extends \Illuminate\Support\Facades\Facade
 {
-    protected static function getFacadeAccessor() { return 'mysqlbackupmanager'; }
+    protected static function getFacadeAccessor() { return 'mysql.backup.manager'; }
 
     /**
      * Resolve a new instance
