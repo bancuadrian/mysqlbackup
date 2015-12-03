@@ -15,7 +15,6 @@ use BancuAdrian\MysqlBackup\Persistence\PersistenceInterface;
 class BackupManager
 {
     protected $databases;
-    protected $connector;
     protected $dumper;
     protected $persistence;
     protected $failedBackups = [];

@@ -13,7 +13,7 @@ use BancuAdrian\MysqlBackup\BackupManager;
 use BancuAdrian\MysqlBackup\Dumpers\SimpleDumper;
 use BancuAdrian\MysqlBackup\Persistence\FilePersistence;
 
-class ServiceProvider extends Illuminate\Support\ServiceProvider
+class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
 
     /**
@@ -23,7 +23,7 @@ class ServiceProvider extends Illuminate\Support\ServiceProvider
      */
     public function register()
 {
-    $this->app->bind('MysqlBackupManager',function($app){
+    $this->app->singleton('mysql.backup.manager',function($app){
         $dumper = new SimpleDumper("test","123");
         $persistence = new FilePersistence();
 
