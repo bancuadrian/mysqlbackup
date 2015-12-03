@@ -6,8 +6,7 @@
  * Time: 4:36 PM
  */
 
-namespace MysqlBackup\Dumpers;
-
+namespace BancuAdrian\MysqlBackup\Dumpers;
 
 class SimpleDumper implements DumperInterface
 {

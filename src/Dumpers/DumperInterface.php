@@ -6,7 +6,7 @@
  * Time: 3:58 PM
  */
 
-namespace MysqlBackup\Dumpers;
+namespace BancuAdrian\MysqlBackup\Dumpers;
 
 
 interface DumperInterface

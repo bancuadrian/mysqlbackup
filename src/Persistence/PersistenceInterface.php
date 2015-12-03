@@ -6,7 +6,7 @@
  * Time: 2:11 PM
  */
 
-namespace MysqlBackup\Persistence;
+namespace BancuAdrian\MysqlBackup\Persistence;
 
 
 interface PersistenceInterface

@@ -7,7 +7,7 @@ class BackupManager extends PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->bm = new \MysqlBackup\BackupManager();
+        $this->bm = new BancuAdrian\MysqlBackup\BackupManager();
         $databases = ['databaseName1','databaseName2'];
         $this->bm->setDatabases($databases);
     }
@@ -19,23 +19,23 @@ class BackupManager extends PHPUnit_Framework_TestCase
 
     public function testConstruct()
     {
-        $this->assertInstanceOf('MysqlBackup\BackupManager',$this->bm);
+        $this->assertInstanceOf('BancuAdrian\MysqlBackup\BackupManager',$this->bm);
     }
 
     public function testDumper()
     {
-        $dumper = Mockery::mock('MysqlBackup\Dumpers\DumperInterface');
+        $dumper = Mockery::mock('BancuAdrian\MysqlBackup\Dumpers\DumperInterface');
         $this->bm->setDumper($dumper);
 
-        $this->assertInstanceOf('MysqlBackup\Dumpers\DumperInterface',$this->bm->getDumper());
+        $this->assertInstanceOf('BancuAdrian\MysqlBackup\Dumpers\DumperInterface',$this->bm->getDumper());
     }
 
     public function testBackupSingleSuccessfully()
     {
-        $dumper = Mockery::mock('MysqlBackup\Dumpers\DumperInterface');
+        $dumper = Mockery::mock('BancuAdrian\MysqlBackup\Dumpers\DumperInterface');
         $dumper->shouldReceive('getDump')->once()->andReturn('dump');
 
-        $persistence = Mockery::mock('MysqlBackup\Persistence\PersistenceInterface');
+        $persistence = Mockery::mock('BancuAdrian\MysqlBackup\Persistence\PersistenceInterface');
         $persistence->shouldReceive('persist')->once();
 
         $this->bm->setDumper($dumper);
@@ -48,10 +48,10 @@ class BackupManager extends PHPUnit_Framework_TestCase
 
     public function testBackupSingleFailed()
     {
-        $dumper = Mockery::mock('MysqlBackup\Dumpers\DumperInterface');
+        $dumper = Mockery::mock('BancuAdrian\MysqlBackup\Dumpers\DumperInterface');
         $dumper->shouldReceive('getDump')->once()->andThrow('Exception');
 
-        $persistence = Mockery::mock('MysqlBackup\Persistence\PersistenceInterface');
+        $persistence = Mockery::mock('BancuAdrian\MysqlBackup\Persistence\PersistenceInterface');
         $this->bm->setDumper($dumper);
         $this->bm->setPersistence($persistence);
 
@@ -63,8 +63,8 @@ class BackupManager extends PHPUnit_Framework_TestCase
 
     public function testBackupAllSuccessful()
     {
-        $dumper = Mockery::mock('MysqlBackup\Dumpers\DumperInterface');
-        $persistence = Mockery::mock('MysqlBackup\Persistence\PersistenceInterface');
+        $dumper = Mockery::mock('BancuAdrian\MysqlBackup\Dumpers\DumperInterface');
+        $persistence = Mockery::mock('BancuAdrian\MysqlBackup\Persistence\PersistenceInterface');
 
         foreach($this->bm->getDatabases() as $database)
         {
@@ -91,8 +91,8 @@ class BackupManager extends PHPUnit_Framework_TestCase
 
     public function testBackupAllFailed()
     {
-        $dumper = Mockery::mock('MysqlBackup\Dumpers\DumperInterface');
-        $persistence = Mockery::mock('MysqlBackup\Persistence\PersistenceInterface');
+        $dumper = Mockery::mock('BancuAdrian\MysqlBackup\Dumpers\DumperInterface');
+        $persistence = Mockery::mock('BancuAdrian\MysqlBackup\Persistence\PersistenceInterface');
 
         foreach($this->bm->getDatabases() as $database)
         {

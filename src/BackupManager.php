@@ -6,13 +6,11 @@
  * Time: 10:39 AM
  */
 
-namespace MysqlBackup;
+namespace BancuAdrian\MysqlBackup;
 
 
-use MysqlBackup\Connectors\ConnectorException;
-use MysqlBackup\Connectors\ConnectorInterface;
-use MysqlBackup\Dumpers\DumperInterface;
-use MysqlBackup\Persistence\PersistenceInterface;
+use BancuAdrian\MysqlBackup\Dumpers\DumperInterface;
+use BancuAdrian\MysqlBackup\Persistence\PersistenceInterface;
 
 class BackupManager
 {

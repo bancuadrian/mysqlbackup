@@ -9,7 +9,7 @@ class FilePersistanceTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
-        $this->persistence = new \MysqlBackup\Persistence\FilePersistence();
+        $this->persistence = new BancuAdrian\MysqlBackup\Persistence\FilePersistence();
     }
 
     protected function tearDown()
@@ -19,7 +19,7 @@ class FilePersistanceTest extends PHPUnit_Framework_TestCase
 
     public function testConstruct()
     {
-        $this->assertInstanceOf('MysqlBackup\Persistence\PersistenceInterface',$this->persistence);
+        $this->assertInstanceOf('BancuAdrian\MysqlBackup\Persistence\PersistenceInterface',$this->persistence);
     }
 
     public function testPersist()
@@ -35,7 +35,7 @@ class FilePersistanceTest extends PHPUnit_Framework_TestCase
 
     public function testConstructWithPath()
     {
-        $persistence = new \MysqlBackup\Persistence\FilePersistence('/usr/share/');
+        $persistence = new BancuAdrian\MysqlBackup\Persistence\FilePersistence('/usr/share/');
 
         $this->assertEquals($persistence->getPath(),'/usr/share/');
     }

@@ -6,7 +6,7 @@
  * Time: 5:41 PM
  */
 
-namespace MysqlBackup\Persistence;
+namespace BancuAdrian\MysqlBackup\Persistence;
 
 
 class FilePersistence implements PersistenceInterface

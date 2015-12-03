@@ -5,7 +5,7 @@
  * User: bancuadrian
  */
 
-class SimpleDumper extends PHPUnit_Framework_TestCase
+class SimpleDumperTest extends PHPUnit_Framework_TestCase
 {
     protected $dumper;
 
@@ -13,7 +13,7 @@ class SimpleDumper extends PHPUnit_Framework_TestCase
     {
         $user = 'vagrant';
         $pass = 'vagrant';
-        $this->dumper = new MysqlBackup\Dumpers\SimpleDumper($user,$pass);
+        $this->dumper = new BancuAdrian\MysqlBackup\Dumpers\SimpleDumper($user,$pass);
     }
 
     protected function tearDown()
@@ -23,6 +23,6 @@ class SimpleDumper extends PHPUnit_Framework_TestCase
 
     public function testConstruct()
     {
-        $this->assertInstanceOf('MysqlBackup\Dumpers\DumperInterface',$this->dumper);
+        $this->assertInstanceOf('BancuAdrian\MysqlBackup\Dumpers\DumperInterface',$this->dumper);
     }
 }
