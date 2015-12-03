@@ -11,6 +11,13 @@ namespace MysqlBackup\Persistence;
 
 class FilePersistence implements PersistenceInterface
 {
+    protected $path;
+
+    public function __construct($path = '')
+    {
+        $this->path = $path;
+    }
+
     /**
      * Saves a new file and returns the name
      *
@@ -22,9 +29,9 @@ class FilePersistence implements PersistenceInterface
     {
         $filename = date("YmdHis")."_".uniqid();
 
-        file_put_contents($filename,$contents);
+        file_put_contents($this->path.$filename,$contents);
 
-        return $filename;
+        return $this->path.$filename;
     }
 
     /**
@@ -34,6 +41,14 @@ class FilePersistence implements PersistenceInterface
      */
     public function read($filename)
     {
-        return file_get_contents($filename);
+        return file_get_contents($this->path.$filename);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 }

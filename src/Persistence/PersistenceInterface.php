@@ -24,4 +24,6 @@ interface PersistenceInterface
      * @return string
      */
     public function read($filename);
+
+    public function getPath();
 }

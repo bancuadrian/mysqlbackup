@@ -8,8 +8,6 @@ class FilePersistanceTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
-        $user = 'vagrant';
-        $pass = 'vagrant';
         $this->persistence = new \MysqlBackup\Persistence\FilePersistence();
     }
 
@@ -30,5 +28,14 @@ class FilePersistanceTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue(file_exists($result));
         $this->assertEquals($this->persistence->read($result),$uniq_str);
+
+        unlink($result);
+    }
+
+    public function testConstructWithPath()
+    {
+        $persistence = new \MysqlBackup\Persistence\FilePersistence('/usr/share/');
+
+        $this->assertEquals($persistence->getPath(),'/usr/share/');
     }
 }
