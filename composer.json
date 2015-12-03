@@ -1,0 +1,21 @@
+{
+    "name": "bancuadrian/mysqlbackup",
+    "description": "Backup your mysql databases",
+    "license": "MIT",
+    "keywords": ["mysql","backup","bancuadrian"],
+    "authors": [
+        {
+            "name": "Bancu Adrian",
+            "email": "adrian@bancu.io"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "4.0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "MysqlBackup\\": "src"
+        }
+    }
+}
