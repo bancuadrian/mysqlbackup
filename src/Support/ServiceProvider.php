@@ -22,12 +22,36 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      * @return void
      */
     public function register()
-{
-    $this->app->singleton('mysql.backup.manager',function($app){
-        $dumper = new SimpleDumper("test","123");
-        $persistence = new FilePersistence();
+    {
+        $this->mergeConfigFrom(
+            __DIR__.'/config/config.php', 'mysqlbackup'
+        );
 
-        return new BackupManager($dumper,$persistence);
-    });
-}
+        $this->app->singleton('mysql.backup.manager', function ($app) {
+            $dumper = new SimpleDumper(
+                config('mysqlbackup.usr'),
+                config('mysqlbackup.pwd'))
+            ;
+            $persistence = new FilePersistence(config('mysqlbackup.absolute_path'));
+
+            $backupManager = new BackupManager($dumper, $persistence);
+            if(count(config('mysqlbackup.databases')))
+            {
+                $backupManager->setDatabases(config('mysqlbackup.databases'));
+            }
+            return $backupManager;
+        });
+    }
+
+    /**
+     * Perform post-registration booting of services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->publishes([
+            __DIR__.'/config/config.php' => config_path('mysqlbackup.php'),
+        ]);
+    }
 }
