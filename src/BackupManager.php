@@ -8,7 +8,6 @@
 
 namespace BancuAdrian\MysqlBackup;
 
-
 use BancuAdrian\MysqlBackup\Dumpers\DumperInterface;
 use BancuAdrian\MysqlBackup\Persistence\PersistenceInterface;
 
