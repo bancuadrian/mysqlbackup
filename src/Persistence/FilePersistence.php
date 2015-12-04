@@ -22,12 +22,17 @@ class FilePersistence implements PersistenceInterface
      * Saves a new file and returns the name
      *
      * @param string $contents
+     * @param string suffix
      * @throws \Exception
      * @return string
      */
-    public function persist($contents)
+    public function persist($contents,$suffix = '')
     {
         $filename = date("YmdHis")."_".uniqid();
+        if(trim($suffix) != '')
+        {
+            $filename .= "_".$suffix;
+        }
 
         file_put_contents($this->path.$filename,$contents);
 

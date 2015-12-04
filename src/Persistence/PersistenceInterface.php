@@ -13,10 +13,11 @@ interface PersistenceInterface
 {
     /**
      * @param string $database
+     * @param string $suffix
      * @throws \Exception
      * @return null
      */
-    public function persist($database);
+    public function persist($database,$suffix);
 
     /**
      * Reads a file and returns the result

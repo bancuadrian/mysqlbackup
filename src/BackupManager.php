@@ -83,9 +83,10 @@ class BackupManager
     {
         try {
             $dump = $this->dumper->getDump($database);
-            $this->persistence->persist($dump);
+            $this->persistence->persist($dump,$database);
         } catch (\Exception $e) {
             $this->failedBackups[] = $database;
+            echo PHP_EOL.$e->getMessage();
             return false;
         }
 

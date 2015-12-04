@@ -76,7 +76,7 @@ class BackupManager extends PHPUnit_Framework_TestCase
 
             $persistence
                 ->shouldReceive('persist')
-                ->with('dump')
+                ->withArgs(['dump',$database])
                 ->once();
         }
 
