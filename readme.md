@@ -11,7 +11,7 @@ I wrote this simple package, so I can swiftly dump my database whenever I need t
 ## Requirements
 
  - php 5.5+
- - mysqldump
+ - mysqldump linux command
 
 ## Instalation
 
